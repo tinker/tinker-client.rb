@@ -1,15 +1,14 @@
 require 'sinatra/base'
+require 'config'
 require 'omniauth'
 require 'omniauth-github'
-
-CONF = JSON.parse File.open('config/config.json', 'rb').read
 
 module Tinker
   class Client < Sinatra::Base
     set :root, File.expand_path('../..', __FILE__)
     use Rack::Session::Cookie
     use OmniAuth::Builder do
-      provider :github, CONF['auth']['github']['id'], CONF['auth']['github']['secret']
+      provider :github, Config['auth']['github']['id'], Config['auth']['github']['secret']
     end
 
     get '/' do
@@ -18,8 +17,8 @@ module Tinker
         :tinker => {},
         :dependencies => JSON.parse(File.open('config/dependencies.json', 'rb').read),
         :config => {
-          :urls => CONF['urls'],
-          :layouts => CONF['layouts']
+          :urls => Config['urls'],
+          :layouts => Config['layouts']
         }
       }
       erb :index, :locals => locals
