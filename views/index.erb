@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<title>Tinker &mdash; Code Collaboration Made Easy</title>
 		<% if environment == :production %>
-			<link href="tinker.min.css" rel="stylesheet">
+			<link href="/tinker.min.css" rel="stylesheet">
 		<% else %>
-			<link href="normalize.css" rel="stylesheet">
-			<link href="codemirror.css" rel="stylesheet">
-			<link href="tinker.css" rel="stylesheet">
+			<link href="/normalize.css" rel="stylesheet">
+			<link href="/codemirror.css" rel="stylesheet">
+			<link href="/tinker.css" rel="stylesheet">
 		<% end %>
 		<link href="/favicon.png" rel="icon" type="image/png">
 	</head>
@@ -16,17 +16,17 @@
 		<script type="tinker/data" id="tinker-data"><%=tinker.to_json%></script>
 		<script type="framework/data" id="framework-data"><%=dependencies.to_json%></script>
 		<% if environment == :production %>
-			<script src="tinker.min.js"></script>
+			<script src="/tinker.min.js"></script>
 		<% else %>
-			<script src="mootools.js"></script>
-			<script src="mootools-base64.js"></script>
-			<script src="slab.js"></script>
-			<script src="slab.load.js"></script>
-			<script src="codemirror.js"></script>
-			<script src="mode-xml.js"></script>
-			<script src="mode-css.js"></script>
-			<script src="mode-javascript.js"></script>
-			<script src="tinker.js"></script>
+			<script src="/mootools.js"></script>
+			<script src="/mootools-base64.js"></script>
+			<script src="/slab.js"></script>
+			<script src="/slab.load.js"></script>
+			<script src="/codemirror.js"></script>
+			<script src="/mode-xml.js"></script>
+			<script src="/mode-css.js"></script>
+			<script src="/mode-javascript.js"></script>
+			<script src="/tinker.js"></script>
 		<% end %>
 		<script>Tinker.init(<%=config.to_json%>);</script>
 	</body>
