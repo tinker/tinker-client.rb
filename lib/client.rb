@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'config'
+require 'httparty'
 require 'omniauth'
 require 'omniauth-github'
 
@@ -12,7 +13,13 @@ module Tinker
     end
 
     get %r{^(?:/([A-Za-z0-9_]+))?/(?:([A-Za-z0-9]{5})(?:/([0-9]+))?/?)?$} do |username, hash, revision|
+      tinker = nil
       dependencies = nil
+      if (hash)
+        revision ||= 0
+        response = HTTParty.get(Config['urls']['api']+'/tinkers/'+hash+'/'+revision.to_s)
+        tinker = JSON.parse response.body
+      end
       if File.exists? 'config/dependencies.json'
         begin
           dependencies = JSON.parse File.open('config/dependencies.json', 'rb').read
@@ -22,7 +29,7 @@ module Tinker
       end
       locals = {
         :environment => settings.environment,
-        :tinker => {},
+        :tinker => tinker,
         :dependencies => dependencies,
         :config => {
           :urls => Config['urls'],
