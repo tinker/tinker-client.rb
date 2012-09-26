@@ -11,7 +11,7 @@ module Tinker
       provider :github, Config['auth']['github']['id'], Config['auth']['github']['secret']
     end
 
-    get '/' do
+    get %r{^(?:/([A-Za-z0-9_]+))?/(?:([A-Za-z0-9]{5})(?:/([0-9]+))?/?)?$} do |username, hash, revision|
       locals = {
         :environment => settings.environment,
         :tinker => {},
