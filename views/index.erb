@@ -14,7 +14,9 @@
 	</head>
 	<body>
 		<script type="tinker/data" id="tinker-data"><%=tinker.to_json%></script>
-		<script type="framework/data" id="framework-data"><%=dependencies.to_json%></script>
+		<% if dependencies %>
+			<script type="framework/data" id="framework-data"><%=dependencies.to_json%></script>
+		<% end %>
 		<% if environment == :production %>
 			<script src="/tinker.min.js"></script>
 		<% else %>
