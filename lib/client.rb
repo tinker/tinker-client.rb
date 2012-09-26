@@ -12,10 +12,18 @@ module Tinker
     end
 
     get %r{^(?:/([A-Za-z0-9_]+))?/(?:([A-Za-z0-9]{5})(?:/([0-9]+))?/?)?$} do |username, hash, revision|
+      dependencies = nil
+      if File.exists? 'config/dependencies.json'
+        begin
+          dependencies = JSON.parse File.open('config/dependencies.json', 'rb').read
+        rescue JSON::ParserError => e
+          p "Failed to parse dependencies"
+        end
+      end
       locals = {
         :environment => settings.environment,
         :tinker => {},
-        :dependencies => JSON.parse(File.open('config/dependencies.json', 'rb').read),
+        :dependencies => dependencies,
         :config => {
           :urls => Config['urls'],
           :layouts => Config['layouts']
