@@ -1,3 +1,5 @@
+require 'json'
+
 module Tinker
   class Config
     class << self
