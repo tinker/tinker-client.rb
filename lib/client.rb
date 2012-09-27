@@ -18,7 +18,7 @@ module Tinker
       if (hash)
         revision ||= 0
         response = HTTParty.get(Config['urls']['api']+'/tinkers/'+hash+'/'+revision.to_s)
-        tinker = JSON.parse response.body
+        tinker = JSON.parse response.body if response.code == 200
       end
       if File.exists? 'config/dependencies.json'
         begin
