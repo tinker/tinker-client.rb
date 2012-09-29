@@ -13,6 +13,10 @@ module Tinker
     end
 
     get %r{^(?:/([A-Za-z0-9_]+))?/(?:([A-Za-z0-9]{5})(?:/([0-9]+))?/?)?$} do |username, hash, revision|
+      if username && !hash
+        hash = username
+        username = nil
+      end
       tinker = nil
       dependencies = nil
       if (hash)
